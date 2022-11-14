@@ -1,0 +1,10 @@
+app:
+  rest:
+    factory:
+      is-produce:
+        url: https://localhost:8081/factory/api/is-can-produce
+        timeout: 5000
+      assemble:
+        url: https://localhost:8081/factory/api/assemble
+        timeout: 5000
+
