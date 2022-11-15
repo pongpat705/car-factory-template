@@ -1,21 +1,15 @@
 app:
-  rest:
-    factory:
-      is-produce:
-        url: https://localhost:8081/factory/api/is-can-produce
-        timeout: 5000
-      assemble:
-        url: https://localhost:8081/factory/api/assemble
-        timeout: 5000
   kafka:
     bootstrap-servers: localhost:29092
     topics:
       is-ready: factory.is.ready
+    groupid: factory.is.ready.group
+    offset-reset: latest
 spring:
   main:
     allow-bean-definition-overriding: true
   datasource:
-    url: jdbc:mysql://localhost:3306/showroom
+    url: jdbc:mysql://localhost:3306/factory
     username: root
     password: password
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -23,3 +17,5 @@ spring:
     open-in-view: false
     generate-ddl: false
     show-sql: false
+server:
+  port: 8081

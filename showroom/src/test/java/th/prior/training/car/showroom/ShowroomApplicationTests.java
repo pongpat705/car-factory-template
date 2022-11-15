@@ -13,7 +13,9 @@ class ShowroomApplicationTests {
 		FactoryProduceableClientComponentTest factoryProduceableClientComponentTest = new FactoryProduceableClientComponentTest();
 		ProduceableResponseModel produceableResponseModel = factoryProduceableClientComponentTest.call(null);
 
-		ShowroomService showroomService = new ShowroomService(factoryProduceableClientComponentTest);
+		ShowroomService showroomService = new ShowroomService(factoryProduceableClientComponentTest
+				, null
+				, null, null);
 
 		boolean result = showroomService.shouldTellBuyer(produceableResponseModel);
 
