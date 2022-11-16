@@ -59,7 +59,12 @@ public class ShowroomService {
                                 , this.isReadyTopic);
 
                 buyerOrderEntity.setOrderStatus("assembling");
-                this.buyerOrderRepository.save(buyerOrderEntity);
+
+                BuyerOrderEntity x2 = new BuyerOrderEntity();
+                this.buyerOrderRepository.save(x2);
+                x2.getOrderId();
+
+
                 result.setStatus(200);
                 result.setDescription("sent assembling order to factory");
             } else {

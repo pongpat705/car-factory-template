@@ -4,6 +4,8 @@ import lombok.Data;
 import org.springframework.data.relational.core.mapping.Table;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.time.LocalDateTime;
 
@@ -13,6 +15,7 @@ import java.time.LocalDateTime;
 public class BuyerOrderEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int orderId;
     private String buyerName;
     private String orderStatus;
