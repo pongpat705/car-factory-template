@@ -1,5 +1,6 @@
 package th.prior.training.car.showroom.component;
 
+import th.prior.training.car.showroom.component.io.BaseAPIComponent;
 import th.prior.training.car.showroom.model.ProduceableRequestModel;
 import th.prior.training.car.showroom.model.ProduceableResponseModel;
 

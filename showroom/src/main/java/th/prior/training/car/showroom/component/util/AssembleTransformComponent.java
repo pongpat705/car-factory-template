@@ -1,4 +1,4 @@
-package th.prior.training.car.showroom.component;
+package th.prior.training.car.showroom.component.util;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

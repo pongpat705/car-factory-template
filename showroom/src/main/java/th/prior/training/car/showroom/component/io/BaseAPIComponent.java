@@ -1,4 +1,4 @@
-package th.prior.training.car.showroom.component;
+package th.prior.training.car.showroom.component.io;
 
 public interface BaseAPIComponent<T,R> {
 

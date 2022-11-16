@@ -1,10 +1,11 @@
 package th.prior.training.car.showroom.service;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import th.prior.training.car.showroom.component.AssembleTransformComponent;
-import th.prior.training.car.showroom.component.BaseAPIComponent;
+import th.prior.training.car.showroom.component.util.AssembleTransformComponent;
+import th.prior.training.car.showroom.component.io.BaseAPIComponent;
 import th.prior.training.car.showroom.entity.BuyerOrderEntity;
 import th.prior.training.car.showroom.kafka.component.KafkaProducerComponent;
 import th.prior.training.car.showroom.model.AssembleRequestModel;
@@ -27,7 +28,10 @@ public class ShowroomService {
     @Value("${app.kafka.topics.is-ready}")
     private String isReadyTopic;
 
-    public ShowroomService(BaseAPIComponent<ProduceableRequestModel, ProduceableResponseModel> produceableApiComponent, KafkaProducerComponent kafkaProducerComponent, BuyerOrderRepository buyerOrderRepository, AssembleTransformComponent assembleTransformComponent) {
+    public ShowroomService(@Qualifier("factoryProduceableClientComponent") BaseAPIComponent<ProduceableRequestModel, ProduceableResponseModel> produceableApiComponent
+            , KafkaProducerComponent kafkaProducerComponent
+            , BuyerOrderRepository buyerOrderRepository
+            , AssembleTransformComponent assembleTransformComponent) {
         this.produceableApiComponent = produceableApiComponent;
         this.kafkaProducerComponent = kafkaProducerComponent;
         this.buyerOrderRepository = buyerOrderRepository;
