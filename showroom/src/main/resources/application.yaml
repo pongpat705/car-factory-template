@@ -8,9 +8,15 @@ app:
         url: https://localhost:8081/factory/api/assemble
         timeout: 5000
   kafka:
-    bootstrap-servers: localhost:29092
+    bootstrap-servers: localhost:9093
     topics:
       is-ready: factory.is.ready
+    truststore:
+      location: /home/pongpat/Documents/Fluke-Machine/downloads/ktb/DGL/poc/gen-key/client.truststore.jks
+      password: clientsecret
+    security:
+      username: magickiat
+      password: client-secret
 spring:
   main:
     allow-bean-definition-overriding: true
