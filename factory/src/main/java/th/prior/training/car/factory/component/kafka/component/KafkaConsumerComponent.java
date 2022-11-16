@@ -1,4 +1,4 @@
-package th.prior.training.car.factory.kafka.component;
+package th.prior.training.car.factory.component.kafka.component;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;

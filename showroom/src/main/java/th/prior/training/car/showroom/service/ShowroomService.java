@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import th.prior.training.car.showroom.component.util.AssembleTransformComponent;
 import th.prior.training.car.showroom.component.io.BaseAPIComponent;
 import th.prior.training.car.showroom.entity.BuyerOrderEntity;
-import th.prior.training.car.showroom.kafka.component.KafkaProducerComponent;
+import th.prior.training.car.showroom.component.kafka.component.KafkaProducerComponent;
 import th.prior.training.car.showroom.model.AssembleRequestModel;
 import th.prior.training.car.showroom.model.ProduceableRequestModel;
 import th.prior.training.car.showroom.model.ProduceableResponseModel;

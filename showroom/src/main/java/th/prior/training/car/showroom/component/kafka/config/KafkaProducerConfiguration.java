@@ -1,4 +1,4 @@
-package th.prior.training.car.showroom.kafka.config;
+package th.prior.training.car.showroom.component.kafka.config;
 
 import org.apache.kafka.clients.CommonClientConfigs;
 import org.apache.kafka.clients.producer.ProducerConfig;

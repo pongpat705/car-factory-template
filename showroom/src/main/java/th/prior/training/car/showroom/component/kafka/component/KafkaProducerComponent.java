@@ -1,4 +1,4 @@
-package th.prior.training.car.showroom.kafka.component;
+package th.prior.training.car.showroom.component.kafka.component;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;

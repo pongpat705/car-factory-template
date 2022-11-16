@@ -1,10 +1,16 @@
 app:
   kafka:
-    bootstrap-servers: localhost:29092
+    bootstrap-servers: localhost:9093
     topics:
       is-ready: factory.is.ready
     groupid: factory.is.ready.group
     offset-reset: latest
+    truststore:
+      location: /home/pongpat/Documents/Fluke-Machine/downloads/ktb/DGL/poc/gen-key/client.truststore.jks
+      password: clientsecret
+    security:
+      username: magickiat
+      password: client-secret
 spring:
   main:
     allow-bean-definition-overriding: true
@@ -17,5 +23,17 @@ spring:
     open-in-view: false
     generate-ddl: false
     show-sql: false
+  cache:
+    type: redis
+  redis:
+    host: localhost
+    port: 6379
+    lettuce:
+      pool:
+        max-active: 16
+        max-idle: 8
+        max-wait: 30000
+        min-idle: 2
+    password: superpassword
 server:
   port: 8081
