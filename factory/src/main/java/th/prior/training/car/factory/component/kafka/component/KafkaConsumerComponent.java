@@ -16,7 +16,7 @@ public class KafkaConsumerComponent {
         this.assembleService = assembleService;
     }
 
-    @KafkaListener(topics = "${app.kafka.topics.is-ready}", groupId = "${app.kafka.groupid}")
+    @KafkaListener(topics = "${app.kafka.topics.assemble}", groupId = "${app.kafka.groupid}")
     public void ncbResult(@Payload String message) throws Exception {
        log.info("factory got messa got {}", message);
        this.assembleService.assembleCar(message);

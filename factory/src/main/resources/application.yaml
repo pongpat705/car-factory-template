@@ -2,7 +2,7 @@ app:
   kafka:
     bootstrap-servers: localhost:9093
     topics:
-      is-ready: factory.is.ready
+      assemble: factory.assemble
     groupid: factory.is.ready.group
     offset-reset: latest
     truststore:

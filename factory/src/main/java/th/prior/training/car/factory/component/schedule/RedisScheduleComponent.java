@@ -28,6 +28,8 @@ public class RedisScheduleComponent{
     private TypeCarInfoTransformComponent typeCarInfoTransformComponent;
     private RedisCachComponent redisCachComponent;
 
+    private Map<String, List<TypeCarInfoModel>> carInfoMaps;
+
     public RedisScheduleComponent(TypeCarInfoRepository typeCarInfoRepository
             , TypeCarInfoTransformComponent typeCarInfoTransformComponent
             , @Qualifier("redisCachComponentImpl") RedisCachComponent redisCachComponent) {
@@ -38,6 +40,8 @@ public class RedisScheduleComponent{
 
 
     @Scheduled(cron = "0 0 6 * * *")
+//    @Scheduled(fixedDelay = 60000L)
+//    @Scheduled(fixedRate = 500L)
     public void updateModelTypesToRedis() throws JsonProcessingException {
         this.initToRedis();
     }
@@ -48,13 +52,19 @@ public class RedisScheduleComponent{
     }
 
     private void initToRedis() throws JsonProcessingException {
+
         List<TypeCarInfoEntity> typeCarInfoEntities = this.typeCarInfoRepository.findAllByIsActive("Y");
+
+
         List<TypeCarInfoModel> typeCarInfoModels = typeCarInfoEntities
-                .stream().map(typeCarInfoEntity ->
-                        this.typeCarInfoTransformComponent.transFormEntityToModel(typeCarInfoEntity))
+                .stream()
+                .map(x -> this.typeCarInfoTransformComponent.transFormEntityToModel(x))
                 .collect(Collectors.toList());
+
         Map<String, List<TypeCarInfoModel>> map = new HashMap<>();
+
         for (TypeCarInfoModel typeCarInfoModel : typeCarInfoModels) {
+
             if (map.containsKey(typeCarInfoModel.getTypeGroup())){
                 List<TypeCarInfoModel> a = map.get(typeCarInfoModel.getTypeGroup());
                 a.add(typeCarInfoModel);
@@ -65,13 +75,19 @@ public class RedisScheduleComponent{
             }
         }
 
+        this.carInfoMaps = map;
+
         for (String keySet: map.keySet()) {
 
             String json = this.typeCarInfoTransformComponent.modelListTojson(map.get(keySet));
 
-            this.redisCachComponent.setKeyToRedis(keySet, json, 24, TimeUnit.MINUTES);
+            this.redisCachComponent.setKeyToRedis(keySet, json, 24, TimeUnit.HOURS);
         }
 
 
+    }
+
+    public Map<String, List<TypeCarInfoModel>> getCarInfoMaps() {
+        return carInfoMaps;
     }
 }
