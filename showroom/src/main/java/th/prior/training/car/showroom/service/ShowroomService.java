@@ -36,6 +36,7 @@ public class ShowroomService {
         this.kafkaProducerComponent = kafkaProducerComponent;
         this.buyerOrderRepository = buyerOrderRepository;
         this.assembleTransformComponent = assembleTransformComponent;
+        log.info("add showroom log")
     }
 
     public ResponseModel<Void> assembleACar(String orderId){
