@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: showroom-service
+  namespace: car-factory-dev
+  labels:
+    app: showroom-label
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8080
+      targetPort: 8080
+  selector:
+    app: showroom-deployment

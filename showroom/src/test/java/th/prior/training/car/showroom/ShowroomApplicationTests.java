@@ -2,6 +2,7 @@ package th.prior.training.car.showroom;
 
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import th.prior.training.car.showroom.component.io.BaseAPIComponent;
 import th.prior.training.car.showroom.component.FactoryProduceableClientComponentTest;
 import th.prior.training.car.showroom.model.ProduceableRequestModel;
@@ -27,6 +28,14 @@ class ShowroomApplicationTests {
 		Assertions.assertEquals(true, result);
 
 
+	}
+
+
+	@Test
+	public void testGetEnvironmentVariable(){
+		String val = System.getenv("USERNAME");
+
+		System.out.println(val);
 	}
 
 

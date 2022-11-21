@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: showroom-deployment
+  namespace: car-factory-dev
+  labels:
+    app: showroom-label
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: showroom-deployment
+  template:
+    metadata:
+      labels:
+        app: showroom-deployment
+    spec:
+      hostAliases:
+        - ip: 127.0.0.1
+          hostnames:
+            - localhost
+      containers:
+      - name: showroom-deployment
+        image: showroom:v1.0.0
+        imagePullPolicy: Never
+        env:
+        - name: JAVA_OPTS
+          value: "-Xms256m -Xmx1024m"
+        - name: JAVA_CONFIGS
+          value: "--spring.config.location=/home/app/config/application.yaml"
+        - name: TIME_ZONE
+          value: "-Dlogback.timezone=Asia/Bangkok"
+        - name: MY_POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        volumeMounts:
+        - name: showroom-volume
+          mountPath: /home/app/config/application.yaml
+          subPath: application.yaml
+      volumes:
+      - name: showroom-volume
+        configMap:
+          name: showroom-configmap
+
