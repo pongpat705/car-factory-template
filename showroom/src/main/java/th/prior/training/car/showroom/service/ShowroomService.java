@@ -73,6 +73,7 @@ public class ShowroomService {
             log.info("assembleACar orderid {} error {}", orderId, e.getMessage());
             result.setDescription("assembleACar error "+e.getMessage());
         }
+        log.info("test log")
 
         return result;
     }
