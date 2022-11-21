@@ -21,6 +21,6 @@ public class BuyerOrderEntity {
     private String orderStatus;
     private String orderCarType;
     private LocalDateTime orderDate;
-    private String isActive;
+    private String isActive; //df
 
 }
