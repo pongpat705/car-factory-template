@@ -48,6 +48,7 @@ public class ShowroomService {
             Optional<BuyerOrderEntity> buyerOrderEntityOptional = this.buyerOrderRepository
                     .findByOrderIdAndIsActive(orderIdInt, "Y");
             if(buyerOrderEntityOptional.isPresent()){
+                log.info("findByOrderIdAndIsActive is present");
                 BuyerOrderEntity buyerOrderEntity = buyerOrderEntityOptional.get();
                 AssembleRequestModel assembleRequestModel = new AssembleRequestModel();
                 assembleRequestModel.setBuyerName(buyerOrderEntity.getBuyerName());
@@ -64,6 +65,7 @@ public class ShowroomService {
                 result.setStatus(200);
                 result.setDescription("sent assembling order to factory");
             } else {
+                log.info("findByOrderIdAndIsActive is not present");
                 result.setStatus(404);
                 result.setDescription("assembleACar order not found ");
             }
