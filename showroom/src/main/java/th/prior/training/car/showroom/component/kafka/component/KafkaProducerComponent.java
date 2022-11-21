@@ -24,6 +24,7 @@ public class KafkaProducerComponent {
                         }
                         , ex -> {
                             log.info("kafka send exception {}", ex.getMessage());
+                            log.info("add log kafka")
                         });
     }
 }
