@@ -2,17 +2,17 @@ app:
   rest:
     factory:
       is-produce:
-        url: https://localhost:8081/factory/api/is-can-produce
+        url: https://factory:8080/factory/api/is-can-produce
         timeout: 5000
       assemble:
-        url: https://localhost:8081/factory/api/assemble
+        url: https://factory:8080/factory/api/assemble
         timeout: 5000
   kafka:
-    bootstrap-servers: localhost:9093
+    bootstrap-servers: kafka:9092
     topics:
       is-ready: factory.is.ready
     truststore:
-      location: /home/pongpat/Documents/Fluke-Machine/downloads/ktb/DGL/poc/gen-key/client.truststore.jks
+      location: /home/app/client.truststore.jks
       password: clientsecret
     security:
       username: magickiat
@@ -21,7 +21,7 @@ spring:
   main:
     allow-bean-definition-overriding: true
   datasource:
-    url: jdbc:mysql://localhost:3306/showroom
+    url: jdbc:mysql://mysql:3306/showroom
     username: root
     password: password
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -29,4 +29,3 @@ spring:
     open-in-view: false
     generate-ddl: false
     show-sql: false
-    database-platform: org.hibernate.dialect.MySQLDialect
