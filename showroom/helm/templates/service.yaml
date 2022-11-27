@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "helm.fullname" . }}
+  labels:
+    {{- include "helm.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.default.port }}
+      targetPort: {{ .Values.service.default.target }}
+      protocol: TCP
+      name: {{ .Values.service.default.name }}
+    - port: {{ .Values.service.monitor.port }}
+      targetPort: {{ .Values.service.monitor.target }}
+      protocol: TCP
+      name: {{ .Values.service.monitor.name }}
+  selector:
+    {{- include "helm.selectorLabels" . | nindent 4 }}
