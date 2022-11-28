@@ -72,6 +72,7 @@ affinity: {}
 
 pubsub-location: "secret/krungthai-dg-lending-sit.json"
 
+
 secrets:
   spring:
     datasource:
@@ -79,6 +80,16 @@ secrets:
       username: root
       password: password
       url: jdbc:mysql://192.168.49.1:3306/showroom
+
+
+volumeMount:
+  - name: volumn-showroom-application
+    mountPath: /home/app/config/application.yaml
+    subPath: application.yaml
+volume:
+  - name: volumn-showroom-application
+    configMap:
+      name: showroom-application
 
 env:
   - name: JAVA_OPTS
@@ -105,11 +116,15 @@ env:
 
 # tochange
 hostaliases:
-  - ip: 10.249.91.4
+  - ip: 127.0.0.1
     hostnames:
-      - msg.cmmnent.dev.gcp.ktbcloud
+      - localhost
 
 configmap:
+  factory:
+    api:
+      isProduce:
+        url: https://factory:8080/factory/api/is-can-produce
   application:
     app:
       rest:

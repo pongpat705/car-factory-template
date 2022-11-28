@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{.Chart.Name}}-configmap
+data:
+  application.yaml: |+
+    app:
+      rest:
+        factory:
+          is-produce:
+            url: {{.Values.configmap.factory.api.isProduce.url}}
+            timeout: 5000
+          assemble:
+            url: https://factory:8080/factory/api/assemble
+            timeout: 5000
+      kafka:
+        bootstrap-servers: 192.168.49.1:39092
+        topics:
+          is-ready: factory.is.ready
+        truststore:
+          location: /home/app/client.truststore.jks
+          password: clientsecret
+        security:
+          username: magickiat
+          password: client-secret
+    spring:
+      main:
+        allow-bean-definition-overriding: true
+      datasource:
+        url: jdbc:mysql://192.168.49.1:3306/showroom
+        username: root
+        password: password
+        driver-class-name: com.mysql.cj.jdbc.Driver
+      jpa:
+        open-in-view: false
+        generate-ddl: false
+        show-sql: false

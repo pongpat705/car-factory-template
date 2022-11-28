@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "helm.fullname" . }}
+  name: {{ include "helm.fullname" . }}-deployment
   labels:
     {{- include "helm.labels" . | nindent 4 }}
 spec:
@@ -48,21 +48,11 @@ spec:
             failureThreshold: 3
             periodSeconds: 30
           volumeMounts:
-            - name: volumn-{{ .Chart.Name }}-application
-              mountPath: /home/app/config/application.yaml
-              subPath: application.yaml
-{{/*            - name: volumn-{{ .Chart.Name }}-endpoint*/}}
-{{/*              mountPath: /home/application-endpoint.yaml*/}}
-{{/*              subPath: application-endpoint.yaml*/}}
+            {{- toYaml .Values.volumeMount | nindent 12 }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       volumes:
-        - name: volumn-{{ .Chart.Name }}-application
-          configMap:
-            name: {{ .Chart.Name }}-application
-{{/*        - name: volumn-{{ .Chart.Name }}-endpoint*/}}
-{{/*          configMap:*/}}
-{{/*            name: {{ .Chart.Name }}-endpoint*/}}
+        {{- toYaml .Values.volume | nindent 8 }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
