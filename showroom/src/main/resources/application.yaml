@@ -8,7 +8,7 @@ app:
         url: https://localhost:8081/factory/api/assemble
         timeout: 5000
   kafka:
-    bootstrap-servers: localhost:9093
+    bootstrap-servers: localhost:29092
     topics:
       is-ready: factory.is.ready
     truststore:

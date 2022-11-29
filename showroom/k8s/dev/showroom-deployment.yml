@@ -22,7 +22,7 @@ spec:
       containers:
       - name: showroom-deployment
         image: showroom:v1.0.0
-        imagePullPolicy: Never
+        imagePullPolicy: Always
         env:
         - name: JAVA_OPTS
           value: "-Xms256m -Xmx1024m"

@@ -10,5 +10,5 @@ WORKDIR /home/app
 
 EXPOSE 8080
 
-ENTRYPOINT exec java $JAVA_OPTS -jar /home/app/app.jar $JAVA_CONFIGS
+ENTRYPOINT exec java $JAVA_OPTS -jar app.jar $JAVA_CONFIGS
 
