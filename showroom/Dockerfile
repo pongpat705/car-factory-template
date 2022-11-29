@@ -1,4 +1,4 @@
-FROM adoptopenjdk:11-jre-openj9
+FROM openjdk:11.0-bullseye
 
 RUN mkdir -p /home/app
 

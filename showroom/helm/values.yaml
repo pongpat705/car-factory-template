@@ -1,0 +1,165 @@
+# Default values for helm.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: showroom
+  tag: v1.0.0
+  pullPolicy: Never
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name:
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+service:
+  type: NodePort
+  port: 80
+  default:
+    port: 8080
+    name: default
+    target: 8080
+  monitor:
+    port: 9090
+    name: monitor
+    target: 9090
+
+ingress:
+  enabled: false
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  hosts:
+    - host: chart-example.local
+      paths: []
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+
+resources:
+  limits:
+    cpu: 100m
+    memory: 2048Mi
+  requests:
+    cpu: 100m
+    memory: 1024Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+pubsub-location: "secret/krungthai-dg-lending-sit.json"
+
+
+secrets:
+  spring:
+    datasource:
+      # tochange
+      username: root
+      password: password
+      url: jdbc:mysql://192.168.49.1:3306/showroom
+
+
+volumeMount:
+  - name: volumn-showroom-application
+    mountPath: /home/app/config/application.yaml
+    subPath: application.yaml
+volume:
+  - name: volumn-showroom-application
+    configMap:
+      name: showroom-application
+
+env:
+  - name: JAVA_OPTS
+    value: "-Xms256m -Xmx1024m"
+  - name: JAVA_CONFIGS
+    value: "--spring.config.location=/home/app/config/application.yaml"
+  - name: TIME_ZONE
+    value: "-Dlogback.timezone=Asia/Bangkok"
+  - name: SPRING_DATASOURCE_USERNAME
+    valueFrom:
+      secretKeyRef:
+        name: showroom-secret
+        key: spring.datasource.username
+  - name: SPRING_DATASOURCE_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        name: showroom-secret
+        key: spring.datasource.password
+  - name: SPRING_DATASOURCE_URL
+    valueFrom:
+      secretKeyRef:
+        name: showroom-secret
+        key: spring.datasource.url
+
+# tochange
+hostaliases:
+  - ip: 127.0.0.1
+    hostnames:
+      - localhost
+
+configmap:
+  factory:
+    api:
+      isProduce:
+        url: https://factory:8080/factory/api/is-can-produce
+  application:
+    app:
+      rest:
+        factory:
+          is-produce:
+            url: https://factory:8080/factory/api/is-can-produce
+            timeout: 5000
+          assemble:
+            url: https://factory:8080/factory/api/assemble
+            timeout: 5000
+      kafka:
+        bootstrap-servers: 192.168.49.1:39092
+        topics:
+          is-ready: factory.is.ready
+        truststore:
+          location: /home/app/client.truststore.jks
+          password: clientsecret
+        security:
+          username: magickiat
+          password: client-secret
+    spring:
+      main:
+        allow-bean-definition-overriding: true
+      datasource:
+        driver-class-name: com.mysql.cj.jdbc.Driver
+      jpa:
+        open-in-view: false
+        generate-ddl: false
+        show-sql: false
+    server:
+      port: 8080
+      servlet:
+        context-path: /showroom
+    management:
+      endpoints:
+        exposure:
+          include:
+            - health
