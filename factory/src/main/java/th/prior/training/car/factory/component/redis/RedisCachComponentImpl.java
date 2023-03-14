@@ -15,23 +15,17 @@ public class RedisCachComponentImpl implements RedisCachComponent{
     public RedisCachComponentImpl(RedisTemplate<String, String> redisTemplate) {
         this.redisTemplate = redisTemplate;
     }
-    private void insertToRedis(String key, String value, int time, TimeUnit unitType){
-        log.info("insertToRedis {}, {}", key, value);
-        this.redisTemplate.opsForValue().set(key, value, time, unitType);
-    }
-    private void deleteFromRedis(String key){
-        log.info("deleteFromRedis {}", key);
-        this.redisTemplate.delete(key);
-    }
 
     @Override
     public void setKeyToRedis(String key, String value, int time, TimeUnit unitType){
-        this.insertToRedis(key,value,time, unitType);
+        log.info("insertToRedis {}, {}", key, value);
+        this.redisTemplate.opsForValue().set(key, value, time, unitType);
     }
 
     @Override
     public void deleteKeyFromRedis(String key){
-        this.deleteFromRedis(key);
+        log.info("deleteFromRedis {}", key);
+        this.redisTemplate.delete(key);
     }
 
     @Override
