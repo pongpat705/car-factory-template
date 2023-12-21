@@ -5,11 +5,3 @@ metadata:
 data:
   application.yaml: |
   {{- toYaml .Values.configmap.application | nindent 4 }}
-{{/*---*/}}
-{{/*apiVersion: v1*/}}
-{{/*kind: ConfigMap*/}}
-{{/*metadata:*/}}
-{{/*  name: {{ .Chart.Name }}-endpoint*/}}
-{{/*data:*/}}
-{{/*  application-endpoint.yaml: |*/}}
-{{/*  {{- toYaml .Values.configmap.endpoint | nindent 4 }}*/}}
